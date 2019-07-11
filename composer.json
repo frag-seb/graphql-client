@@ -34,7 +34,7 @@
         "php-coveralls/php-coveralls": "^2.1"
     },
     "scripts": {
-        "phpunit": "./vendor/bin/phpunit --configuration phpunit.xml.dist",
+        "phpunit": "./vendor/bin/phpunit -c phpunit.xml.dist",
         "phpstan": "php -d xdebug.max_nesting_level=-1 vendor/bin/phpstan analyse --configuration phpstan.neon.dist",
         "phpcs": "./vendor/bin/phpcs",
         "phpcs-fixer": "./vendor/bin/phpcbf",
