@@ -10,10 +10,13 @@ use function function_exists;
 use function GuzzleHttp\json_encode;
 
 if (!function_exists('request_builder')) {
-    function request_builder(array $payload, array $headers = []): RequestInterface
+    function request_builder(string $query, array $variables = [], array $headers = []): RequestInterface
     {
-        $headers = ['Content-Type' => 'application/json'] + $headers;
+        $body = [
+            'query' => $query,
+            'variables' => $variables,
+        ];
 
-        return new Request('POST', '', $headers, json_encode($payload));
+        return new Request('POST', '', ['Content-Type' => 'application/json'] + $headers, json_encode($body));
     }
 }

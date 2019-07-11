@@ -156,18 +156,27 @@ QUERY;
         }
     }
 QUERY;
+        $var_1 = ['id' => 1];
+        $var_2 = ['id' => 2];
+        $var_3 = ['id' => 3];
+        $var_4 = ['id' => 4];
 
+        /** @var RequestInterface[] $requestsBuilder */
         $requestsBuilder = [
-            request_builder(['query' => $query, 'variables' => ['id' => 1]], []),
-            request_builder(['query' => $query, 'variables' => ['id' => 2]], []),
-            request_builder(['query' => $query, 'variables' => ['id' => 3]], []),
-            request_builder(['query' => $query, 'variables' => ['id' => 4]], []),
+            request_builder($query, $var_1),
+            request_builder($query, $var_2),
+            request_builder($query, $var_3),
+            request_builder($query, $var_4),
         ];
 
         self::assertInstanceOf(RequestInterface::class, $requestsBuilder[0]);
 
         $requests = static function () use ($requestsBuilder) {
             foreach ($requestsBuilder as $request) {
+                self::assertJson($request->getBody()->getContents());
+                self::assertTrue($request->hasHeader('Content-Type'));
+                self::assertSame('application/json', $request->getHeaderLine('Content-Type'));
+
                 yield $request;
             }
         };
