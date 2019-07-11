@@ -33,8 +33,14 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
     },
     "scripts": {
+        "phpunit": "./vendor/bin/phpunit",
         "phpstan": "php -d xdebug.max_nesting_level=-1 vendor/bin/phpstan analyse --configuration phpstan.neon.dist",
         "phpcs": "./vendor/bin/phpcs",
-        "phpcs-fixer": "./vendor/bin/phpcbf"
+        "phpcs-fixer": "./vendor/bin/phpcbf",
+        "test": [
+             "@phpstan",
+             "@phpcs",
+             "@phpstan"
+        ]
     }
 }
