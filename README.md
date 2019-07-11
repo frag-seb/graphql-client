@@ -2,6 +2,9 @@
 [![Build Status](https://travis-ci.org/frag-seb/graphql-client.svg?branch=master)](https://travis-ci.org/frag-seb/graphql-client)
 [![Coverage Status](https://coveralls.io/repos/github/frag-seb/graphql-client/badge.svg?branch=master)](https://coveralls.io/github/frag-seb/graphql-client?branch=master)
 
+
+[![Total Downloads](https://poser.pugx.org/fragseb/graphql-client/downloads.png)](https://packagist.org/packages/fragseb/graphql-client)
+
 PHP Client for [GraphQL](http://graphql.org/)
 
 ```php
