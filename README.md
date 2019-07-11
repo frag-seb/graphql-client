@@ -1,5 +1,6 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://travis-ci.org/frag-seb/graphql-client.svg?branch=master)](https://travis-ci.org/frag-seb/graphql-client)
+[![Coverage Status](https://coveralls.io/repos/github/frag-seb/graphql-client/badge.svg?branch=master)](https://coveralls.io/github/frag-seb/graphql-client?branch=master)
 
 PHP Client for [GraphQL](http://graphql.org/)
 
