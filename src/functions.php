@@ -10,10 +10,20 @@ use function function_exists;
 use function GuzzleHttp\json_encode;
 
 if (!function_exists('request_builder')) {
-    function request_builder(array $payload, array $headers = []): RequestInterface
+    function request_builder(array $options = []): RequestInterface
     {
-        $headers = ['Content-Type' => 'application/json'] + $headers;
+        $headers = $options['headers'] ?? [];
+        $body = $options['body'] ?? null;
+        $version = $options['version'] ?? '1.1';
 
-        return new Request('POST', '', $headers, json_encode($payload));
+        if (isset($options['json'])) {
+            $body =  json_encode($options['json']);
+
+            unset($options['json']);
+
+            $headers = ['Content-Type' => 'application/json'] + $headers;
+        }
+
+        return new Request('POST', '', $headers, $body, $version);
     }
 }
