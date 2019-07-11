@@ -9,8 +9,9 @@ use FragSeb\GraphQL\Response;
 use FragSeb\GraphQL\ResponseInterface;
 use FragSeb\GraphQL\Transformer\DataTransformerAwareInterface;
 use FragSeb\GraphQL\Transformer\DataTransformerInterface;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use PHPStan\Testing\TestCase;
-use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
@@ -27,26 +28,25 @@ final class ResponseTest extends TestCase
     private $response;
 
     /**
-     * @var MockObject|\Psr\Http\Message\ResponseInterface
+     * @var GuzzleResponse
      */
     private $mockResponse;
 
 
     public function setUp(): void
     {
-        $status = StatusCodeInterface::STATUS_OK;
         $headers = [
             'foo' => 'bar',
         ];
         $body = json_encode(['key1' => 'value1']);
 
-        $this->mockResponse = new \GuzzleHttp\Psr7\Response($status, $headers, $body);
+        $this->mockResponse = new GuzzleResponse(StatusCodeInterface::STATUS_OK, $headers, $body);
         $this->response = new Response($this->mockResponse);
     }
 
     public function testIsInstance(): void
     {
-        self::assertInstanceOf(\Psr\Http\Message\ResponseInterface::class, $this->response);
+        self::assertInstanceOf(GuzzleResponseInterface::class, $this->response);
         self::assertInstanceOf(ResponseInterface::class, $this->response);
         self::assertInstanceOf(DataTransformerAwareInterface::class, $this->response);
     }

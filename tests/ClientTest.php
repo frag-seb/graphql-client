@@ -10,6 +10,8 @@ use FragSeb\GraphQL\ClientInterface;
 use FragSeb\GraphQL\Exception\ExceptionInterface;
 use FragSeb\GraphQL\Exception\GraphQLException;
 use FragSeb\GraphQL\ResponseInterface;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Handler\MockHandler;
@@ -35,13 +37,13 @@ final class ClientTest extends TestCase
     private $client;
 
     /**
-     * @var MockObject|\GuzzleHttp\ClientInterface
+     * @var MockObject|GuzzleClientInterface
      */
     private $mockGuzzleClient;
 
     public function setUp(): void
     {
-        $this->mockGuzzleClient = $this->createMock(\GuzzleHttp\ClientInterface::class);
+        $this->mockGuzzleClient = $this->createMock(GuzzleClientInterface::class);
         $this->client = new Client($this->mockGuzzleClient);
     }
 
@@ -185,7 +187,7 @@ QUERY;
 
         $handler = new MockHandler([$fn(), $fn(), $fn(), $r4]);
 
-        $client2 = new \GuzzleHttp\Client([
+        $client2 = new GuzzleClient([
             'handler' => $handler,
             'base_uri' => 'https://www.example.com/graphql',
         ]);
