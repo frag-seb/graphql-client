@@ -40,15 +40,15 @@ final class Client implements ClientInterface
         return new Response($response);
     }
 
-    public function queryAsync(callable $requests, callable $onFullfilled, callable $onRejecte, int $concurrency = 10): void
+    public function queryAsync(callable $requests, callable $onSuccessful, callable $onUnsuccessful, int $concurrency = 10): void
     {
         $pool = new Pool($this->guzzleClient, $requests(), [
             'concurrency' => $concurrency,
-            'fulfilled' => static function (PsrResponseInterface $response, int $index) use ($onFullfilled): void {
-                $onFullfilled(new Response($response), $index);
+            'fulfilled' => static function (PsrResponseInterface $response, int $index) use ($onSuccessful): void {
+                $onSuccessful(new Response($response), $index);
             },
-            'rejected' => static function (RequestException $exception) use ($onRejecte): void {
-                $onRejecte(new GraphQLException($exception, $exception->getMessage(), $exception->getCode()));
+            'rejected' => static function (RequestException $exception) use ($onUnsuccessful): void {
+                $onUnsuccessful(new GraphQLException($exception, $exception->getMessage(), $exception->getCode()));
             },
         ]);
 

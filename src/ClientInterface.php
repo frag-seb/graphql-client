@@ -8,5 +8,5 @@ interface ClientInterface
 {
     public function query(string $query, array $variables = [], array $headers = []): ResponseInterface;
 
-    public function queryAsync(callable $requests, callable $onFullfilled, callable $onRejecte, int $concurrency = 10): void;
+    public function queryAsync(callable $requests, callable $onSuccessful, callable $onUnsuccessful, int $concurrency = 10): void;
 }
